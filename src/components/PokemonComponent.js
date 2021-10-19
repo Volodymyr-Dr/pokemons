@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Switch, Route } from 'react-router-dom';
-
-import PokemonList from './components/PokemonList'
-import PokemonInfo from './components/PokemonInfo'
-
-import './App.css'
+import PokemonList from './PokemonList'
 
 
-const HomeComponent = () => {
+// import './App.css'
+
+function PokemonComponent() {
+
     const [allPokemons, setAllPokemons] = useState([])
     const [loadMore, setLoadMore] = useState('https://pokeapi.co/api/v2/pokemon?limit=12')
  
-
    const getAllPokemons = async () => {
      const res = await fetch(loadMore)
      const data = await res.json()
@@ -30,48 +27,32 @@ const HomeComponent = () => {
      }
      createPokemonObject(data.results)
    }
-  
+ 
+ 
   useEffect(() => {
    getAllPokemons()
   }, [])
  
-   return <div className="app-contaner">
+   return (
+     <div className="app-contaner">
        <h1>Pokedex</h1>
        <div className="pokemon-container">
          <div className="all-container">
            {allPokemons.map( (pokemonStats, index) => 
              <PokemonList
-                key={pokemonStats.id}
+               key={index}
                id={pokemonStats.id}
                image={pokemonStats.sprites.other.dream_world.front_default}
-               name={pokemonStats.name}
                type={pokemonStats.types[0].type.name}
-               attack={pokemonStats.stats[1].base_stat}
-               defense={pokemonStats.stats[2].base_stat}
-               hp={pokemonStats.stats[0].base_stat}
-               sp_attack={pokemonStats.stats[3].base_stat}
-               sp_defense={pokemonStats.stats[4].base_stat}
-               speed={pokemonStats.stats[5].base_stat}
-               weight={pokemonStats.weight}
-               total_moves={pokemonStats.moves.length}
              />)} 
          </div>
-
-           <button className="load-more" onClick={getAllPokemons}>Load more</button>
+         <div>
+             
+         </div>
+           <button className="load-more" onClick={() => getAllPokemons()}>Load more</button>
        </div>
      </div>
-   
-};
-
-function App() {
-    return (  
-       <Switch>
-           <Route  path="/" component={HomeComponent}/>
-
-           <Route path="/:id" component={PokemonInfo}/>
-       </Switch>
-    );
-    
+   );
  }
  
-export default App;
+ export default PokemonComponent;
