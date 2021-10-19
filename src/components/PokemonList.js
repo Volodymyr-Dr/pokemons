@@ -7,7 +7,7 @@ const PokemonList = ({id, image, name, type, attack, defense, hp, sp_attack, sp_
 
     return (
         <div>
-        <Link to={`/${id}`}>
+        <Link to={`/pokemons/${id}`}>
             <div>
                 <div className="thumb-container">
                     <img src={image} alt={name} />
@@ -19,7 +19,7 @@ const PokemonList = ({id, image, name, type, attack, defense, hp, sp_attack, sp_
             </div> 
         </Link>
         <Switch>
-            <Route path={`/${id}`}>
+            <Route path={`/pokemons/${id}`}>
                 <div className={type_style + " thumb-container position"}>
                     <img src={image} alt={name} />
                     <div className="detail-wrapper">
@@ -65,7 +65,6 @@ const PokemonList = ({id, image, name, type, attack, defense, hp, sp_attack, sp_
             </Route>
         </Switch>
         </div>
-        
     )
 }
 

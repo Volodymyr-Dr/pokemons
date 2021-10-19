@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Switch, Route } from 'react-router-dom';
 
 import PokemonList from './components/PokemonList'
-import PokemonInfo from './components/PokemonInfo'
 
 import './App.css'
 
@@ -23,7 +22,7 @@ const HomeComponent = () => {
        results.map( async pokemon => {
          const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
          const data =  await res.json()
-         console.log(data)
+        
          setAllPokemons( currentList => [...currentList, data])
          await allPokemons.sort((a, b) => a.id - b.id)
        })
@@ -39,7 +38,7 @@ const HomeComponent = () => {
        <h1>Pokedex</h1>
        <div className="pokemon-container">
          <div className="all-container">
-           {allPokemons.map( (pokemonStats, index) => 
+           {allPokemons.map( (pokemonStats) => 
              <PokemonList
                 key={pokemonStats.id}
                id={pokemonStats.id}
@@ -66,12 +65,9 @@ const HomeComponent = () => {
 function App() {
     return (  
        <Switch>
-           <Route  path="/" component={HomeComponent}/>
-
-           <Route path="/:id" component={PokemonInfo}/>
+           <Route  path="/pokemons/" component={HomeComponent}/>
        </Switch>
-    );
-    
+    );  
  }
  
 export default App;
